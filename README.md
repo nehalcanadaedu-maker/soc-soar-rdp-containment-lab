@@ -155,13 +155,12 @@ The workflow has two possible final outcomes:
 
 1. Containment approved and AD account disabled.
 
-<img width="623" height="321" alt="image" src="https://github.com/user-attachments/assets/cbd919db-3dbf-42f4-b5b2-38ad60357ea9" />
-
-3. Containment not approved and no action taken.
-
-<img width="755" height="275" alt="image" src="https://github.com/user-attachments/assets/5489f5e2-d53e-47ce-bdaf-47b09afa230c" />
+<img width="1331" height="323" alt="image" src="https://github.com/user-attachments/assets/fca624f9-237d-4a1b-915f-2d21e49422b3" />
 
 
+2. Containment not approved and no action taken.
+
+<img width="1402" height="282" alt="image" src="https://github.com/user-attachments/assets/418f6b76-2976-45a4-8091-1f6eacf827af" />
 
 
 
