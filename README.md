@@ -105,7 +105,8 @@ The purpose of the Slack message is to quickly notify the SOC team that suspicio
 
 ### Slack Alert Message
 
-<img width="781" height="180" alt="image" src="https://github.com/user-attachments/assets/5a0baf8f-58c8-4a51-b1d0-0fc83a343c6e" />
+<img width="1082" height="183" alt="image" src="https://github.com/user-attachments/assets/2fa38904-cf3f-46f3-be9f-073ea477c4c0" />
+
 
 ## 7. AbuseIPDB IP Reputation Enrichment
 
@@ -133,7 +134,9 @@ The purpose of this step is to make sure containment is not performed automatica
 
 ### Approval Email Content
 
-<img width="595" height="777" alt="image" src="https://github.com/user-attachments/assets/1696fcf0-67f9-434c-adbe-cb0dda6900d9" />
+<img width="1397" height="623" alt="image" src="https://github.com/user-attachments/assets/2b4d5c7a-1051-4c35-8ecc-53f24aae9292" />
+<img width="1787" height="486" alt="image" src="https://github.com/user-attachments/assets/0c199e22-1005-4359-85a2-7e52251e9406" />
+
 
 ## 9. Active Directory Containment Action
 
@@ -162,9 +165,99 @@ The workflow has two possible final outcomes:
 
 <img width="1402" height="282" alt="image" src="https://github.com/user-attachments/assets/418f6b76-2976-45a4-8091-1f6eacf827af" />
 
+## 11. MITRE ATT&CK Mapping
+
+The unauthorized RDP login detection was mapped to MITRE ATT&CK techniques to show how the observed behavior may align with real adversary activity.
+
+### Mapped Techniques
+
+| MITRE ID | Technique | Reason |
+|---|---|---|
+| T1021.001 | Remote Services: Remote Desktop Protocol | The detected activity involved a successful RDP login to a Windows host. |
+| T1078 | Valid Accounts | The login used a legitimate Active Directory user account, which could indicate stolen or misused credentials. |
+
+### Why This Mapping Matters
+
+This alert maps to `T1021.001 - Remote Services: Remote Desktop Protocol` because the access method was RDP. Attackers often use RDP for remote access and lateral movement after obtaining valid credentials.
+
+This alert also maps to `T1078 - Valid Accounts` because the activity involved successful authentication using a real domain user account. If the credentials were stolen, guessed, or misused, the attacker could access systems while appearing as a normal user.
+
+### SOC Context
+
+```text
+T1021.001 = How the user accessed the system: RDP
+T1078     = What was used to authenticate: Valid AD credentials
 
 
+## 13. False Positive Considerations
 
+Not every successful RDP login from an unfamiliar IP address is malicious. A SOC analyst should review the alert context before approving containment to avoid disabling legitimate user accounts.
+
+### Possible False Positives
+
+| Scenario | Explanation |
+|---|---|
+| Approved VPN IP not allowlisted | A legitimate user may connect from a company VPN IP that has not been added to the approved list. |
+| Admin jump box activity | Administrators may use specific jump servers or remote access systems for maintenance. |
+| User working from a new location | A user may connect from a different network, city, or ISP. |
+| Clean AbuseIPDB score | A clean reputation score does not prove the activity is safe, but it may lower confidence that the IP is known malicious. |
+| Expected after-hours work | Some users may have legitimate business reasons to access systems outside normal hours. |
+
+### Analyst Review Notes
+
+Before disabling the account, the analyst should confirm whether the activity is expected. The workflow requires approval before containment so that legitimate access is not disrupted automatically.
+
+### Recommended Improvements
+
+- Maintain an allowlist of approved VPN, admin, and office IP ranges.
+- Add user behavior baselines for normal RDP activity.
+- Include recent failed login counts before the successful login.
+- Add asset criticality to understand the risk of the destination host.
+- Add privileged account checks before taking containment action.
+
+## 14. Production Hardening Considerations
+
+This project was built in a controlled lab environment. In a production environment, additional security controls would be required before allowing a SOAR workflow to disable Active Directory accounts.
+
+### Recommended Hardening
+
+| Area | Recommendation |
+|---|---|
+| API Security | Use HTTPS instead of HTTP for the PowerShell response API. |
+| Network Access | Restrict the response API so only the SOAR server can reach it. |
+| Authentication | Store API tokens securely and rotate them regularly. |
+| Protected Accounts | Exclude Domain Admins, service accounts, and critical accounts from automatic disablement. |
+| Approval Control | Require analyst approval before containment actions. |
+| Logging | Log every containment request, approval decision, and response result. |
+| Change Control | Integrate containment actions with ticketing or incident management systems. |
+| Error Handling | Send failure notifications if account disablement or verification fails. |
+
+### Production Notes
+
+The PowerShell response API should not be publicly exposed in a real environment. It should be protected using firewall rules, authentication, HTTPS, and strong logging. Containment actions should also include safeguards to prevent accidental disablement of privileged or business-critical accounts.
+
+## 15. Lessons Learned
+
+This project helped demonstrate how multiple SOC functions work together in a realistic detection and response workflow. Instead of stopping at alert generation, the workflow continued through enrichment, analyst approval, containment, and verification.
+
+### Key Takeaways
+
+- Learned how Windows Security Event ID `4624` and Logon Type `10` can be used to detect successful RDP authentication.
+- Practiced building Splunk SPL detection logic for suspicious authentication activity.
+- Integrated Splunk alerts with Shuffle SOAR using webhooks.
+- Added AbuseIPDB enrichment to provide IP reputation context before analyst approval.
+- Used Slack and email notifications to simulate SOC communication and approval workflows.
+- Implemented a PowerShell-based Active Directory containment action to disable affected user accounts.
+- Verified containment by checking the final AD account status after the response action.
+- Learned the importance of analyst approval, false-positive review, and safe automation before taking disruptive actions.
+
+### Main SOC Lesson
+
+The biggest lesson from this project was that a good SOC workflow is not only about detecting suspicious activity. A complete workflow should provide context, support analyst decision-making, perform safe containment, and verify the final outcome.
+
+## 16. Future Improvements
+
+This project currently focuses on unauthorized RDP login detection, alert enrichment, analyst approval, Active Directory containment, and final verification. The workflow can be expanded further to support additional SOC use cases and improve detection accuracy.
 
 
 
