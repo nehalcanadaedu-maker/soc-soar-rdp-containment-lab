@@ -187,7 +187,7 @@ This alert also maps to `T1078 - Valid Accounts` because the activity involved s
 ```text
 T1021.001 = How the user accessed the system: RDP
 T1078     = What was used to authenticate: Valid AD credentials
-
+```
 
 ## 13. False Positive Considerations
 
