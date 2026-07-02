@@ -59,9 +59,7 @@ The Shuffle SOAR workflow receives alerts from Splunk, sends an initial Slack no
 
 If the analyst approves containment, Shuffle triggers the PowerShell-based Active Directory response workflow to disable the affected user account and sends a final Slack confirmation. If the analyst does not approve containment, Shuffle sends a no-action Slack notification.
 
-![Shuffle SOAR Workflow](images/shuffle-workflow.png)
-
-<img width="1066" height="531" alt="image" src="https://github.com/user-attachments/assets/a5f6c606-3d71-472a-b35b-bce04bae667c" />
+<img width="820" height="376" alt="image" src="https://github.com/user-attachments/assets/222f98ce-6cf3-4ab6-bf66-86f32a4356e3" />
 
 ### Workflow Steps
 
