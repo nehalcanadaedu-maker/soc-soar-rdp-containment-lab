@@ -38,7 +38,7 @@ The main goals were:
 - Document the final outcome so the SOC team can clearly see what was detected, what decision was made, what action was taken, and whether containment was verified.
 - Log every major workflow step to Splunk via HEC for audit‑grade tracking. Tracks enrichment, Jira ticketing, user approval, AD disable action, Slack reports, and alert status
 
-  ## 3. Lab Environment
+## 3. Lab Environment
 
 The lab was deployed on Vultr using three virtual machines to simulate an enterprise SOC environment with Active Directory, centralized logging, and SOAR-based response.
 
