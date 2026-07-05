@@ -179,8 +179,6 @@ The purpose of this step is to make sure containment is not performed automatica
 
 <img width="767" height="692" alt="image" src="https://github.com/user-attachments/assets/2323fc48-df6a-40c6-bb09-72776a87f8f6" />
 
-<img width="1883" height="838" alt="image" src="https://github.com/user-attachments/assets/c64d2adc-c02d-4189-97f7-f9434833795b" />
-
 ## 10. Active Directory Containment Action
 
 If the SOC analyst approves containment, Shuffle triggers a PowerShell-based Active Directory response workflow. The response action disables the affected domain user account to prevent further unauthorized access.
