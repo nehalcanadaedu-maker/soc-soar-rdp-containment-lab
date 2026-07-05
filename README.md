@@ -214,7 +214,7 @@ The workflow supports two final report outcomes:
 
 <img width="1136" height="456" alt="image" src="https://github.com/user-attachments/assets/201e71e0-b82e-469a-b113-f704799af050" />
      
-<img width="1367" height="562" alt="image" src="https://github.com/user-attachments/assets/afbff9ea-d348-4b67-a82f-33f51856c73f" />
+<img width="1350" height="557" alt="image" src="https://github.com/user-attachments/assets/e5ea04a7-cc08-41f2-8425-b326476f2228" />
 
 This reporting step helps simulate a real SOC workflow where the team receives a clear post-decision summary instead of only seeing whether an automation succeeded or failed.
 
