@@ -1,5 +1,8 @@
 # End-to-End SOC/SOAR Automation Lab: Unauthorized RDP Login Detection & AD Containment
 
+### 🎥 Project Demo Video
+[![SOC/SOAR Automation Lab](https://img.youtube.com/vi/V5eVrKFt72M/0.jpg)](https://youtu.be/V5eVrKFt72M)
+
 ## 1. Project Overview
 
 This project demonstrates an end-to-end SOC/SOAR automation workflow for detecting, enriching, reviewing, and responding to unauthorized Remote Desktop Protocol (RDP) logins in an Active Directory lab environment.
