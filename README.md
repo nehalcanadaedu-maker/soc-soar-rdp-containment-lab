@@ -176,8 +176,7 @@ The purpose of this step is to make sure containment is not performed automatica
 
 ### Approval Email Content
 
-<img width="1397" height="623" alt="image" src="https://github.com/user-attachments/assets/2b4d5c7a-1051-4c35-8ecc-53f24aae9292" />
-<img width="1787" height="486" alt="image" src="https://github.com/user-attachments/assets/0c199e22-1005-4359-85a2-7e52251e9406" />
+<img width="767" height="692" alt="image" src="https://github.com/user-attachments/assets/2323fc48-df6a-40c6-bb09-72776a87f8f6" />
 
 
 ## 10. Active Directory Containment Action
@@ -202,11 +201,17 @@ The workflow supports two final report outcomes:
    - Generated when the analyst approves containment.
    - Includes the Splunk alert name, detection time, affected user, host, source IP, AbuseIPDB enrichment, MITRE ATT&CK mapping, containment action, PowerShell response result, and verification status.
    - Confirms whether the Active Directory account was successfully disabled.
+     
+   <img width="986" height="571" alt="image" src="https://github.com/user-attachments/assets/b41e8940-2128-4e83-b047-87f26eacc5b8" />
+
 
 2. **No Action / Monitoring Report**
    - Generated when the analyst rejects containment.
    - Includes the original alert details, enrichment context, MITRE ATT&CK mapping, analyst decision, and final monitoring status.
    - Confirms that no disruptive containment action was performed.
+
+     <img width="1136" height="456" alt="image" src="https://github.com/user-attachments/assets/201e71e0-b82e-469a-b113-f704799af050" />
+
 
 This reporting step helps simulate a real SOC workflow where the team receives a clear post-decision summary instead of only seeing whether an automation succeeded or failed.
 
