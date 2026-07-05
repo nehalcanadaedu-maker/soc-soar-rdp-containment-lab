@@ -100,7 +100,7 @@ The Shuffle SOAR workflow acts as the automation engine for the entire incident 
 7. **Audit‑Grade Logging to Splunk (HEC)**  
    Every major step—enrichment, user decision, Jira ticketing, AD disable action, Slack reports—is logged back into Splunk with true/false status for full workflow traceability.
 
-<img width="1432" height="672" alt="image" src="https://github.com/user-attachments/assets/54b8f101-9dda-4d23-8e08-a30cebe65034" />
+<img width="1446" height="680" alt="image" src="https://github.com/user-attachments/assets/0c860d3e-7988-49e3-a4e6-f98301d1f158" />
 
 
 ## 5. Detection Logic
