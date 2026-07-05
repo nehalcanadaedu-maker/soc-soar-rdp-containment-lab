@@ -1,6 +1,6 @@
 # End-to-End SOC/SOAR Automation Lab: Unauthorized RDP Login Detection & AD Containment
 
-### 🎥 Project Demo Video
+## 🎥 Project Demo Video
 [![SOC/SOAR Automation Lab](https://img.youtube.com/vi/V5eVrKFt72M/0.jpg)](https://youtu.be/V5eVrKFt72M)
 
 ## 1. Project Overview
