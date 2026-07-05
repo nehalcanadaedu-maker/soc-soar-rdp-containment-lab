@@ -164,6 +164,8 @@ After the AbuseIPDB enrichment step, Shuffle automatically creates a Jira inci
 | • **Current Ticket Status** | Awaiting analyst approval. |
 
 This ensures every alert is documented, traceable, and auditable within the SOC workflow.  
+<img width="1913" height="962" alt="image" src="https://github.com/user-attachments/assets/1bdc06d7-ccf9-4380-97d2-4c6620f55090" />
+
 
 
 ## 9. Analyst Approval Email
