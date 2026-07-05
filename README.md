@@ -177,7 +177,7 @@ The purpose of this step is to make sure containment is not performed automatica
 ### Approval Email Content
 
 <img width="767" height="692" alt="image" src="https://github.com/user-attachments/assets/2323fc48-df6a-40c6-bb09-72776a87f8f6" />
-
+<img width="1883" height="838" alt="image" src="https://github.com/user-attachments/assets/c64d2adc-c02d-4189-97f7-f9434833795b" />
 
 ## 10. Active Directory Containment Action
 
@@ -203,6 +203,7 @@ The workflow supports two final report outcomes:
    - Confirms whether the Active Directory account was successfully disabled.
      
    <img width="986" height="571" alt="image" src="https://github.com/user-attachments/assets/b41e8940-2128-4e83-b047-87f26eacc5b8" />
+   <img width="1377" height="568" alt="image" src="https://github.com/user-attachments/assets/40df6134-7e22-4811-89e0-5acf2e67b046" />
 
 
 2. **No Action / Monitoring Report**
@@ -211,7 +212,7 @@ The workflow supports two final report outcomes:
    - Confirms that no disruptive containment action was performed.
 
      <img width="1136" height="456" alt="image" src="https://github.com/user-attachments/assets/201e71e0-b82e-469a-b113-f704799af050" />
-
+     <img width="1367" height="562" alt="image" src="https://github.com/user-attachments/assets/afbff9ea-d348-4b67-a82f-33f51856c73f" />
 
 This reporting step helps simulate a real SOC workflow where the team receives a clear post-decision summary instead of only seeing whether an automation succeeded or failed.
 
