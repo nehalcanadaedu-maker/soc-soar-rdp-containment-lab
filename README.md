@@ -5,17 +5,19 @@
 
 ## 1. Project Overview
 
-This project demonstrates an end-to-end SOC/SOAR automation workflow for detecting, enriching, reviewing, and responding to unauthorized Remote Desktop Protocol (RDP) logins in an Active Directory lab environment.
+This project demonstrates an end‑to‑end SOC/SOAR automation workflow for detecting, enriching, reviewing, and responding to unauthorized Remote Desktop Protocol (RDP) logins in an Active Directory lab environment.
 
-The lab simulates a real-world security operations workflow where Splunk detects a successful RDP login from a source IP address that is not part of the approved access list. The alert is forwarded to Shuffle SOAR using a webhook. Shuffle then enriches the source IP using AbuseIPDB threat intelligence and sends the SOC analyst an approval request containing the alert details, IP reputation data, MITRE ATT&CK mapping, risk assessment, and triage checklist.
+Splunk detects a successful RDP login from an IP address outside the approved access list and forwards the alert to Shuffle SOAR via webhook. Shuffle enriches the source IP using AbuseIPDB threat intelligence and sends the SOC analyst an approval request containing alert details, IP reputation, MITRE ATT&CK mapping, risk assessment, and a triage checklist.
 
-If the analyst approves containment, Shuffle triggers a PowerShell-based Active Directory response workflow to disable the affected domain user account. After the response action runs, the workflow verifies the account status and generates a final Slack incident report confirming the containment result.
+If the analyst approves containment, Shuffle triggers a PowerShell‑based Active Directory workflow that disables the affected domain user account. The workflow then verifies the account status and generates a final Slack incident report confirming the containment result.
 
-If the analyst does not approve containment, the workflow does not perform any disruptive action. Instead, Shuffle generates a no-action Slack incident report showing that the event was reviewed, containment was rejected, and the alert should remain under monitoring or manual investigation.
+If containment is rejected, Shuffle generates a no‑action Slack report showing that the alert was reviewed, rejected, and should remain under monitoring.
 
-This project was designed to demonstrate the full SOC incident response lifecycle:
+The project demonstrates the full SOC incident response lifecycle:
 
-Detection → Enrichment → Analyst Approval → Containment Decision → Verification → Incident Reporting
+**Detection → Enrichment → Analyst Approval → Containment Decision → Verification → Incident Reporting**
+
+Additionally, the workflow includes **full audit‑grade logging** from Shuffle → Splunk via HEC, tracking true/false status for all major workflow steps including enrichment, Jira ticketing, user decision, AD disable action, Slack reporting, and alert status.
 
 ## 2. Project Objective
 
@@ -34,6 +36,7 @@ The main goals were:
 - Verify whether the account was successfully disabled.
 - Generate final Slack incident reports for both approved containment and rejected/no-action decisions.
 - Document the final outcome so the SOC team can clearly see what was detected, what decision was made, what action was taken, and whether containment was verified.
+- Log every major workflow step to Splunk via HEC for audit‑grade tracking. Tracks enrichment, Jira ticketing, user approval, AD disable action, Slack reports, and alert status
 
   ## 3. Lab Environment
 
@@ -57,36 +60,48 @@ The lab was deployed on Vultr using three virtual machines to simulate an enterp
 | SIEM Index | nehal-ad |
 | Detection Use Case | Unauthorized RDP Login |
 
+
 ### Network Design
 
 The lab was hosted in a Vultr cloud environment using Windows Server and Ubuntu virtual machines to simulate a small enterprise SOC network. The Windows Domain Controller and the domain-joined target server were connected within the same lab environment, while the Splunk server acted as the centralized SIEM platform.
 
 Windows Security logs were forwarded to Splunk using the Splunk Universal Forwarder. Splunk monitored authentication activity, including successful RDP logons, and generated an alert when a successful RDP login was detected from a source IP address outside the approved access list.
 
-After the alert triggered, Splunk forwarded the event details to Shuffle SOAR using a webhook. Shuffle handled the enrichment, analyst approval process, Active Directory containment action, verification step, and final Slack incident report generation.
+Once the alert fired, Splunk forwarded the event to Shuffle SOAR via webhook. Shuffle handled enrichment, analyst approval, Active Directory containment, verification, Slack reporting, and audit‑grade workflow logging back into Splunk via HEC.
 
 ## 4. SOAR Workflow Diagram
 
-The Shuffle SOAR workflow receives alerts from Splunk through a webhook and acts as the automation layer for the incident response process. After receiving the alert, Shuffle sends an initial Slack notification to the SOC channel, enriches the source IP address using AbuseIPDB, sends an analyst approval email, and then routes the workflow based on the analyst decision.
+The Shuffle SOAR workflow acts as the automation engine for the entire incident response process. After Splunk sends an alert through a webhook, Shuffle begins a multi‑step workflow that mirrors a real SOC playbook.
 
-If the analyst approves containment, Shuffle triggers the PowerShell-based Active Directory response workflow to disable the affected user account. After the disable action runs, the workflow verifies the account status and generates a final Slack incident report showing the detection details, enrichment results, analyst decision, containment action, verification status, and final outcome.
+### 🔄 Workflow Summary
 
-If the analyst does not approve containment, Shuffle does not perform any disruptive action. Instead, it generates a no-action Slack incident report showing that the alert was reviewed, containment was rejected, and the event should remain under monitoring or manual investigation.
+1. **Splunk Alert Triggered**  
+   A successful RDP login from an unauthorized IP fires the detection.
 
-<img width="1157" height="496" alt="image" src="https://github.com/user-attachments/assets/2c8c8e5a-f4e9-4188-8c12-cbe4b1540557" />
+2. **Slack Alert Notification**  
+   Shuffle immediately sends a Slack message to the SOC channel with the alert details.
 
-### Workflow Steps
+3. **AbuseIPDB Enrichment**  
+   The source IP is checked against AbuseIPDB to gather threat intelligence and reputation data.
 
-1. Splunk detects a successful RDP login from an unauthorized source IP.
-2. Splunk sends the alert details to Shuffle SOAR using a webhook.
-3. Shuffle sends an initial Slack notification to the SOC channel.
-4. Shuffle queries AbuseIPDB for source IP reputation enrichment.
-5. Shuffle sends an analyst approval email containing alert details, IP reputation, MITRE ATT&CK mapping, risk assessment, and triage context.
-6. The analyst approves or rejects the containment action.
-7. If approved, Shuffle calls the PowerShell Active Directory response workflow to disable the affected user account.
-8. Shuffle verifies the containment result after the disable action.
-9. Shuffle generates a final Slack incident report for approved containment.
-10. If rejected, Shuffle skips containment and generates a no-action Slack incident report.
+4. **Jira incident ticket is created**
+
+5. **User‑Action (Analyst Decision)**  
+   Shuffle sends an approval prompt asking whether the affected AD user should be disabled.
+
+6. **Conditional Workflow Branching**
+   - **If Approved → Containment Path**
+     - PowerShell API disables the AD user 
+     - Final Slack report: **Contained**
+   - **If Rejected → No‑Action Path**
+     - No containment is performed  
+     - Final Slack report: **Rejected / Monitoring**
+
+7. **Audit‑Grade Logging to Splunk (HEC)**  
+   Every major step—enrichment, user decision, Jira ticketing, AD disable action, Slack reports—is logged back into Splunk with true/false status for full workflow traceability.
+
+<img width="1432" height="672" alt="image" src="https://github.com/user-attachments/assets/54b8f101-9dda-4d23-8e08-a30cebe65034" />
+
 
 ## 5. Detection Logic
 
@@ -128,21 +143,32 @@ After the initial Slack alert is sent, Shuffle performs an IP reputation check a
 
 The purpose of this enrichment step is to give the SOC analyst additional threat intelligence before deciding whether to approve containment. This helps avoid making a response decision based only on the login event.
 
-### Enrichment Workflow
 
-```text
-Splunk Alert
-      ↓
-Slack Alert Notification
-      ↓
-AbuseIPDB API Check
-      ↓
-Analyst Approval Email
-```
+## 8. Jira Incident Ticket Creation  
 
-## 8. Analyst Approval Email
+After the AbuseIPDB enrichment step, Shuffle automatically creates a Jira incident ticket under project **KAN** to formally record and track the event.  
 
-After the AbuseIPDB enrichment step, Shuffle sends an approval email to the SOC analyst. This email contains the original Splunk alert details, IP reputation enrichment, MITRE ATT&CK mapping, risk assessment, and triage checklist.
+### 🧾 Ticket Details  
+| Field | Description |
+|-------|--------------|
+| **Project Key** | `KAN` |
+| **Issue Type** | `Task` |
+| **Summary** | `Unauthorized RDP Login – $exec.result.user from $exec.result.Source_Network_Address` |
+| **Description Sections** | |
+| • **Incident Summary** | Successful RDP login detected from an unauthorized IP. |
+| • **Alert Details** | Includes alert name, detection time, user, host, source IP, logon type, detection type, severity. |
+| • **AbuseIPDB Enrichment** | Confidence score, country, ISP, total reports, last reported time. |
+| • **MITRE ATT&CK Mapping** | Tactics: Initial Access / Lateral Movement; Techniques: T1021.001 (RDP), T1078 (Valid Accounts). |
+| • **Analyst Triage Checklist** | Step‑by‑step validation items (IP approval, user behavior, login time, failed attempts, privilege level, host expectation). |
+| • **Recommended Action** | Disable AD account only if login is confirmed unauthorized or suspicious. |
+| • **Current Ticket Status** | Awaiting analyst approval. |
+
+This ensures every alert is documented, traceable, and auditable within the SOC workflow.  
+
+
+## 9. Analyst Approval Email
+
+After the Jira Incident Ticket Creation step, Shuffle sends an approval email to the SOC analyst. This email contains the original Splunk alert details, IP reputation enrichment, MITRE ATT&CK mapping, risk assessment, and triage checklist.
 
 The purpose of this step is to make sure containment is not performed automatically without analyst review. The analyst can review the context and decide whether the affected Active Directory account should be disabled.
 
@@ -152,7 +178,7 @@ The purpose of this step is to make sure containment is not performed automatica
 <img width="1787" height="486" alt="image" src="https://github.com/user-attachments/assets/0c199e22-1005-4359-85a2-7e52251e9406" />
 
 
-## 9. Active Directory Containment Action
+## 10. Active Directory Containment Action
 
 If the SOC analyst approves containment, Shuffle triggers a PowerShell-based Active Directory response workflow. The response action disables the affected domain user account to prevent further unauthorized access.
 
@@ -164,7 +190,7 @@ Shuffle sends an HTTP POST request to a PowerShell listener running on the Domai
 
 http://<DOMAIN_CONTROLLER_PUBLIC_IP>:8085/disable/
 
-## 10. Incident Report Generation
+## 11. Incident Report Generation
 
 After the analyst decision is completed, the SOAR workflow generates a final incident-style Slack report for the SOC channel. This report summarizes the detection, enrichment, analyst decision, containment action, verification result, and final outcome.
 
@@ -182,7 +208,7 @@ The workflow supports two final report outcomes:
 
 This reporting step helps simulate a real SOC workflow where the team receives a clear post-decision summary instead of only seeing whether an automation succeeded or failed.
 
-## 11. MITRE ATT&CK Mapping
+## 12. MITRE ATT&CK Mapping
 
 The unauthorized RDP login detection was mapped to MITRE ATT&CK techniques to show how the observed behavior may align with real adversary activity.
 
