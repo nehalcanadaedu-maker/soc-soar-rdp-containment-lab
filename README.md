@@ -3,6 +3,12 @@
 ## 🎥 Project Demo Video
 [![SOC/SOAR Automation Lab](https://img.youtube.com/vi/V5eVrKFt72M/0.jpg)](https://youtu.be/V5eVrKFt72M)
 
+## 🧭 Quick Navigation
+
+**Start here:** 
+
+[Project Overview](#1-project-overview) • [Project Objective](#2-project-objective) • [Lab Environment](#3-lab-environment) • [SOAR Workflow](#4-soar-workflow-diagram) • [Detection Logic](#5-detection-logic) • [Slack Alert](#6-slack-alert-notification) • [AbuseIPDB Enrichment](#7-abuseipdb-ip-reputation-enrichment) • [Jira Ticket](#8-jira-incident-ticket-creation) • [Analyst Approval](#9-analyst-approval-email) • [AD Containment](#10-active-directory-containment-action) • [Incident Reports](#11-incident-report-generation) • [Audit Logging](#12-audit-grade-workflow-logging) • [MITRE ATT&CK](#13-mitre-attck-mapping) • [False Positives](#14-false-positive-considerations) • [Production Hardening](#15-production-hardening-considerations) • [Lessons Learned](#16-lessons-learned) • [Future Improvements](#17-future-improvements)
+
 ## 1. Project Overview
 
 This project demonstrates an end‑to‑end SOC/SOAR automation workflow for detecting, enriching, reviewing, and responding to unauthorized Remote Desktop Protocol (RDP) logins in an Active Directory lab environment.
