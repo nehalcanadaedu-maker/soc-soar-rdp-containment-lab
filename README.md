@@ -149,6 +149,18 @@ After the initial Slack alert is sent, Shuffle performs an IP reputation check a
 
 The purpose of this enrichment step is to give the SOC analyst additional threat intelligence before deciding whether to approve containment. This helps avoid making a response decision based only on the login event.
 
+The following enrichment data is retrieved from **AbuseIPDB** and automatically added to the Jira incident ticket:
+
+```text
+Abuse Confidence Score: $abuseipdb_check.body.data.abuseConfidenceScore
+Country: $abuseipdb_check.body.data.countryCode
+ISP: $abuseipdb_check.body.data.isp
+Total Reports: $abuseipdb_check.body.data.totalReports
+Last Reported: $abuseipdb_check.body.data.lastReportedAt
+```
+
+This gives the analyst immediate IP reputation context inside Jira, including the abuse confidence score, geographic location, ISP information, number of abuse reports, and the most recent reporting timestamp.
+
 
 ## 8. Jira Incident Ticket Creation  
 
