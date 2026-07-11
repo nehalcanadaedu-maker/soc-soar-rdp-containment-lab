@@ -3,11 +3,26 @@
 ## 🎥 Project Demo Video
 [![SOC/SOAR Automation Lab](https://img.youtube.com/vi/V5eVrKFt72M/0.jpg)](https://youtu.be/V5eVrKFt72M)
 
-## 🧭 Quick Navigation
+## Quick Navigation
 
-**Start here:** 
+1. [Project Overview](#1-project-overview)
+2. [Project Objective](#2-project-objective)
+3. [Lab Environment](#3-lab-environment)
+4. [SOAR Workflow](#4-soar-workflow-diagram)
+5. [Detection Logic](#5-detection-logic)
+6. [Slack Alert Notification](#6-slack-alert-notification)
+7. [AbuseIPDB Enrichment](#7-abuseipdb-ip-reputation-enrichment)
+8. [Jira Incident Ticket Creation](#8-jira-incident-ticket-creation)
+9. [Analyst Approval Email](#9-analyst-approval-email)
+10. [Active Directory Containment](#10-active-directory-containment-action)
+11. [Incident Report Generation](#11-incident-report-generation)
+12. [Audit-Grade Workflow Logging](#12-audit-grade-workflow-logging)
+13. [MITRE ATT&CK Mapping](#13-mitre-attck-mapping)
+14. [False Positive Considerations](#14-false-positive-considerations)
+15. [Production Hardening Considerations](#15-production-hardening-considerations)
+16. [Lessons Learned](#16-lessons-learned)
+17. [Future Improvements](#17-future-improvements)
 
-[Project Overview](#1-project-overview) • [Project Objective](#2-project-objective) • [Lab Environment](#3-lab-environment) • [SOAR Workflow](#4-soar-workflow-diagram) • [Detection Logic](#5-detection-logic) • [Slack Alert](#6-slack-alert-notification) • [AbuseIPDB Enrichment](#7-abuseipdb-ip-reputation-enrichment) • [Jira Ticket](#8-jira-incident-ticket-creation) • [Analyst Approval](#9-analyst-approval-email) • [AD Containment](#10-active-directory-containment-action) • [Incident Reports](#11-incident-report-generation) • [Audit Logging](#12-audit-grade-workflow-logging) • [MITRE ATT&CK](#13-mitre-attck-mapping) • [False Positives](#14-false-positive-considerations) • [Production Hardening](#15-production-hardening-considerations) • [Lessons Learned](#16-lessons-learned) • [Future Improvements](#17-future-improvements)
 
 ## 1. Project Overview
 
