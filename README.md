@@ -224,7 +224,7 @@ The workflow supports two final report outcomes:
 
 This reporting step helps simulate a real SOC workflow where the team receives a clear post-decision summary instead of only seeing whether an automation succeeded or failed.
 
-## Audit-Grade Workflow Logging
+## 12. Audit-Grade Workflow Logging
 
 The workflow sends full audit-grade logs from Shuffle SOAR to Splunk through HTTP Event Collector (HEC).
 
@@ -233,7 +233,7 @@ Each major workflow step records a success or failure value, allowing analysts t
 <img width="1487" height="822" alt="image" src="https://github.com/user-attachments/assets/cc9c671e-8857-4881-9a10-9cfb287dcdf4" />
 
 
-## 12. MITRE ATT&CK Mapping
+## 13. MITRE ATT&CK Mapping
 
 The unauthorized RDP login detection was mapped to MITRE ATT&CK techniques to show how the observed behavior may align with real adversary activity.
 
@@ -257,7 +257,7 @@ T1021.001 = How the user accessed the system: RDP
 T1078     = What was used to authenticate: Valid AD credentials
 ```
 
-## 13. False Positive Considerations
+## 14. False Positive Considerations
 
 Not every successful RDP login from an unfamiliar IP address is malicious. A SOC analyst should review the alert context before approving containment to avoid disabling legitimate user accounts.
 
@@ -283,7 +283,7 @@ Before disabling the account, the analyst should confirm whether the activity is
 - Add asset criticality to understand the risk of the destination host.
 - Add privileged account checks before taking containment action.
 
-## 14. Production Hardening Considerations
+## 15. Production Hardening Considerations
 
 This project was built in a controlled lab environment. In a production environment, additional security controls would be required before allowing a SOAR workflow to disable Active Directory accounts.
 
@@ -304,7 +304,7 @@ This project was built in a controlled lab environment. In a production environm
 
 The PowerShell response API should not be publicly exposed in a real environment. It should be protected using firewall rules, authentication, HTTPS, and strong logging. Containment actions should also include safeguards to prevent accidental disablement of privileged or business-critical accounts.
 
-## 15. Lessons Learned
+## 16. Lessons Learned
 
 This project helped demonstrate how multiple SOC functions work together in a realistic detection and response workflow. Instead of stopping at alert generation, the workflow continued through enrichment, analyst approval, containment, and verification.
 
@@ -323,7 +323,7 @@ This project helped demonstrate how multiple SOC functions work together in a re
 
 The biggest lesson from this project was that a good SOC workflow is not only about detecting suspicious activity. A complete workflow should provide context, support analyst decision-making, perform safe containment, and verify the final outcome.
 
-## 16. Future Improvements
+## 17. Future Improvements
 
 This project currently focuses on unauthorized RDP login detection, alert enrichment, analyst approval, Active Directory containment, and final verification. The workflow can be expanded further to support additional SOC use cases and improve detection accuracy.
 
