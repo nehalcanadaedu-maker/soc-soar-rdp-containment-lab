@@ -218,12 +218,13 @@ The workflow supports two final report outcomes:
 
 This reporting step helps simulate a real SOC workflow where the team receives a clear post-decision summary instead of only seeing whether an automation succeeded or failed.
 
-**Audit-Grade Workflow Logging**
+## Audit-Grade Workflow Logging
 
 The workflow sends full audit-grade logs from Shuffle SOAR to Splunk through HTTP Event Collector (HEC).
 
 Each major workflow step records a success or failure value, allowing analysts to verify whether the automation completed correctly and quickly identify failed actions
 
+<img width="1487" height="822" alt="image" src="https://github.com/user-attachments/assets/cc9c671e-8857-4881-9a10-9cfb287dcdf4" />
 
 
 ## 12. MITRE ATT&CK Mapping
